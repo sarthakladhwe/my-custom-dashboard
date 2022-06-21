@@ -18,8 +18,13 @@ fetch(`https://api.unsplash.com/photos/random?orientation=landscape&query=space`
         document.body.style.backgroundImage = `url("https://images.unsplash.com/photo-1519681393784-d120267933ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMzk3NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTU4MDQ1ODk&ixlib=rb-1.2.1&q=80&w=1080")`
     })
 
-fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&ids=bitcoin,dogecoin,ethereum,litecoin`)
-    .then(res => res.json())
+fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currencyss=inr&ids=bitcoin,dogecoin,ethereum,litecoin`)
+    .then(res => {
+        if(!res.ok) {
+            throw Error("Something went wrong!")
+        } 
+        return res.json()
+    })
     .then(data => {
         for(let crypto of data) {
             console.log(crypto)
@@ -35,5 +40,9 @@ fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&ids=bitcoi
         console.log(data)
     })
     .catch(err => {
-        
+        console.log(err)
+        const divEl = document.createElement('div')
+        divEl.innerHTML = `Can't load Crypto Market! 😔`
+        divEl.style.fontSize = "12px"
+        cryptoDiv.appendChild(divEl)
     })
