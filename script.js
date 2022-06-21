@@ -47,27 +47,8 @@ fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&ids=bitcoi
     })
 
 function getCurrentTime() {
-
-    const today = new Date();
-    let h = today.getHours() > 12 ? today.getHours() - 12 : today.getHours();
-    let m = today.getMinutes();
-    let s = today.getSeconds();
-    h = checkTime(h)
-    m = checkTime(m);
-    s = checkTime(s);
-    currentTimeEl.innerHTML =  h + " : " + m + " : " + s;
-    setTimeout(getCurrentTime, 1000);
-
-    // const currentTime = new Date().toLocaleTimeString()
-    // currentTimeEl.textContent = currentTime
-    // setTimeout(() => {
-    //     getCurrentTime()
-    // }, 1000)
+    const currentTime = new Date().toLocaleTimeString("en-US", {timeStyle: "short"})
+    currentTimeEl.textContent = currentTime
 }   
 
-function checkTime(i) {
-    i < 10 && (i = "0" + i)  // add zero in front of numbers < 10
-    return i
-}
-
-getCurrentTime()
+setInterval(getCurrentTime, 1000)
