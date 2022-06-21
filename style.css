@@ -17,10 +17,12 @@ body {
 
 h3 {
     margin: 0;
+    font-size: 1.2rem;
 }
 
 p {
     margin: 0;
+    font-size: 1rem;
 }
 
 main {
@@ -52,7 +54,6 @@ a {
     display: flex;
     align-items: center;
     column-gap: 5px;
-    font-size: 18px;
     margin: 10px;
 }
 
@@ -74,6 +75,6 @@ a {
 
 .weather-icon {
     margin: 0;
-    width: 3em;
+    width: 3.5em;
     margin-left: 5px;
 }

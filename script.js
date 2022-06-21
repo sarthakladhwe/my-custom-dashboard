@@ -57,10 +57,10 @@ function getCurrentWeather(lat, lon) {
         console.log(data)
         weatherDiv.innerHTML = `
             <div class="temp">
-                <p>${data.main.temp.toFixed(1)}°C</p>
+                <h3>${data.main.temp.toFixed(1)}°C</h3>
                 <img class="weather-icon" src="http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" title=${data.weather[0].description} alt=${data.weather[0].description} />
             </div>
-            <p>${data.name}</p>
+            <h3>${data.name}</h3>
         `
     })
 }
@@ -75,4 +75,3 @@ setInterval(getCurrentTime, 1000)
 navigator.geolocation.getCurrentPosition((position) => {
     getCurrentWeather(position.coords.latitude, position.coords.longitude);
 });
-  
