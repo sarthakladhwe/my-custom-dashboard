@@ -1,5 +1,6 @@
 const imageAuthor = document.getElementById('image-author')
 const cryptoDiv = document.getElementById('crypto')
+const weatherDiv = document.getElementById('weather')
 const currentTimeEl = document.getElementById('current-time')
 
 fetch(`https://api.unsplash.com/photos/random?orientation=landscape&query=space`, {
@@ -9,7 +10,6 @@ fetch(`https://api.unsplash.com/photos/random?orientation=landscape&query=space`
 })
     .then(res => res.json())
     .then(data => {
-        console.log(data)
         document.body.style.backgroundImage = `url(${data.urls.full})`
         imageAuthor.textContent = `By: ${data.user.username}`
         imageAuthor.href = data.user.links.html
@@ -28,7 +28,6 @@ fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&ids=bitcoi
     })
     .then(data => {
         for(let crypto of data) {
-            console.log(crypto)
             const divEl = document.createElement('div')
             divEl.classList.add("inner-crypto")
             divEl.innerHTML = `
@@ -41,10 +40,30 @@ fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&ids=bitcoi
     .catch(err => {
         console.log(err)
         const divEl = document.createElement('div')
-        divEl.innerHTML = `Can't load Crypto Market! 😔`
+        divEl.innerHTML = `Can't load the Crypto Market! 😔`
         divEl.style.fontSize = "12px"
         cryptoDiv.appendChild(divEl)
     })
+
+function getCurrentWeather(lat, lon) {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=a410e420eb732896d7b839d3ecd7df1d`)
+    .then(res => {
+        if(!res.ok) {
+            throw Error("Something went wrong!")
+        }
+        return res.json()
+    })
+    .then(data => {
+        console.log(data)
+        weatherDiv.innerHTML = `
+            <div class="temp">
+                <p>${data.main.temp.toFixed(1)}°C</p>
+                <img class="weather-icon" src="http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" title=${data.weather[0].description} alt=${data.weather[0].description} />
+            </div>
+            <p>${data.name}</p>
+        `
+    })
+}
 
 function getCurrentTime() {
     const currentTime = new Date().toLocaleTimeString("en-US", {timeStyle: "short"})
@@ -52,3 +71,8 @@ function getCurrentTime() {
 }   
 
 setInterval(getCurrentTime, 1000)
+
+navigator.geolocation.getCurrentPosition((position) => {
+    getCurrentWeather(position.coords.latitude, position.coords.longitude);
+});
+  

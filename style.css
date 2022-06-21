@@ -15,6 +15,14 @@ body {
     text-shadow: 0px 0px 20px #aaaaaa;
 }
 
+h3 {
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}
+
 main {
     padding: 15px;
     height: 100vh;
@@ -57,3 +65,15 @@ a {
     margin: 0;
 }
 
+.temp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.weather-icon {
+    margin: 0;
+    width: 3em;
+    margin-left: 5px;
+}
