@@ -51,3 +51,9 @@ a {
 .inner-crypto p {
     margin: 0;
 }
+
+.current-time {
+    font-size: 3rem;
+    margin: 0;
+}
+
